@@ -9,12 +9,12 @@ positions = [[252, 256], [222, 226], [192, 196], [162, 166], [132, 136],
              [102, 106], [72, 76], [42, 46], [12, 16], [0, 4]]
 
 for n in range(10):
-    iterations = []
-    for value in values:
-        cnt = 0
-        salt = 0
-        print(f'Берем первую строку: {value}')
-        for pos in positions:
+    for pos in positions:
+        for value in values:
+            iterations = []
+            cnt = 0
+            salt = 0
+            print(f'Берем первую строку: {value}')
             while hex_value[pos[0]:pos[1]] != '0119':
                 cnt += 1
                 salt += 1
