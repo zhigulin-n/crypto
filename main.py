@@ -6,16 +6,16 @@ table = pa.read_excel('table.xlsx', sheet_name='hashes')
 values = table['Строки'].tolist()
 table.loc[table.shape[0]] = [None]
 
-for i in range(7):
+for i in range(27):
     table.loc[table.shape[0]] = [None]
     i += 1
-
-print(table)
 
 hex_value = ''
 positions = [[252, 256], [222, 226], [192, 196], [162, 166], [132, 136],
              [102, 106], [72, 76], [42, 46], [12, 16], [0, 4]]
 res_iterations = []
+list_hashes = []
+list_iterations = []
 
 for pos in positions:
     iterations = []
@@ -37,11 +37,17 @@ for pos in positions:
         print(f'Полученный хэш: {hex_value}\n'
               f'Количество итераций: {cnt}')
         iterations.append(cnt)
+        list_iterations.append(cnt)
+        list_hashes.append(hex_value)
     res_iterations.append(sum(iterations) // len(iterations))
 
+table['Хэши'] = pa.Series(list_hashes)
+table['Итерация'] = pa.Series(list_iterations)
 table['Позиции'] = pa.Series(positions)
 table['Среднее количество итераций'] = pa.Series(res_iterations)
 table.to_excel('result_table.xlsx')
 
 table.plot(kind='line', x='Позиции', y='Среднее количество итераций')
-plt.show()
+plt.savefig('graph.png')
+
+
