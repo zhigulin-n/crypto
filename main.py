@@ -10,7 +10,6 @@ for i in range(27):
     table.loc[table.shape[0]] = [None]
     i += 1
 
-hex_value = ''
 positions = [[252, 256], [222, 226], [192, 196], [162, 166], [132, 136],
              [102, 106], [72, 76], [42, 46], [12, 16], [0, 4]]
 res_iterations = []
@@ -20,6 +19,7 @@ list_iterations = []
 for pos in positions:
     iterations = []
     for value in values:
+        hex_value = ''
         cnt = 0
         salt = 0
         print(f'Берем первую строку: {value}')
@@ -50,4 +50,5 @@ table.to_excel('result_table.xlsx')
 table.plot(kind='line', x='Позиции', y='Среднее количество итераций')
 plt.savefig('graph.png')
 
-
+print(table)
+plt.show()
